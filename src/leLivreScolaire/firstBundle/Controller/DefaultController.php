@@ -59,24 +59,27 @@ class DefaultController extends Controller
      * @param $newStudent the new data for the student
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function updateAction($id, $newStudent)
+    public function updateAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $student = $em->getRepository('leLivreScolairefirstBundle:Student')->find($id);
+        $request = $this->getRequest();
+        if($request->getMethod()=='POST'){
+            $id = $request->request->get('studentId');
 
-        if (!$student) {
-            throw $this->createNotFoundException(
-                'Aucun etudiant trouvé pour cet id : '.$id
-            );
+            $student = $em->getRepository('leLivreScolairefirstBundle:Student')->find($id);
+
+            $student->setName($request->request->get('studentName'));
+            $student->setLastName($request->request->get('studentLast'));
+            $student->setEmail($request->request->get('studentEmail'));
+            $student->setPictureUrl($request->request->get('studentPicture'));
+            $em->flush();
         }
+        //get the student list back from server
+        $students = $em->getRepository('leLivreScolairefirstBundle:Student')->findAll();
 
-        $student->setName($newStudent->name);
-        $student->setLastName($newStudent->last);
-        $student->setEmail($newStudent->email);
-        $student->setPictureUrl($newStudent->picture);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('/'));
+        $response = new Response(json_encode($students));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -84,14 +87,23 @@ class DefaultController extends Controller
      * @param $id the id of the student to delete
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function deleteAction($id, $newStudent)
+    public function deleteAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $student = $em->getRepository('leLivreScolairefirstBundle:Student')->find($id);
+        $request = $this->getRequest();
+        //get post params
+        if($request->getMethod()=='POST'){
+            $id = $request->request->get('id');
+            $student = $em->getRepository('leLivreScolairefirstBundle:Student')->find($id);
 
-        $em->remove($student);
-        $em->flush();
+            $em->remove($student);
+            $em->flush();
+        }
+        //get the student list back from server
+        $students = $em->getRepository('leLivreScolairefirstBundle:Student')->findAll();
 
-        return $this->redirect($this->generateUrl('/'));
+        $response = new Response(json_encode($students));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 }
