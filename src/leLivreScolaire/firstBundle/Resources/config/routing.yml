@@ -1,15 +1,29 @@
 le_livre_scolairefirst_homepage:
     path:     /
     defaults: { _controller: leLivreScolairefirstBundle:Default:index }
+    requirements:
+              _method: GET
 
 le_livre_scolairefirst_getAll:
     path:     /student/getAll
     defaults: { _controller: leLivreScolairefirstBundle:Default:getAll }
+    requirements:
+              _method: GET
 
 le_livre_scolairefirst_init:
     path:     /student/init
     defaults: { _controller: leLivreScolairefirstBundle:Default:create }
+    requirements:
+              _method: GET
 
 le_livre_scolairefirst_delete:
     path:     /student/delete
     defaults: { _controller: leLivreScolairefirstBundle:Default:delete }
+    requirements:
+              _method: POST
+
+le_livre_scolairefirst_update:
+    path:     /student/update
+    defaults: { _controller: leLivreScolairefirstBundle:Default:update }
+    requirements:
+              _method: POST
