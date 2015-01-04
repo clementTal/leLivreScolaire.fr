@@ -11,22 +11,26 @@ class DefaultController extends Controller
 {
     /**
      * Initial controller.
-     * Load all student from db and send them to front
      * @return Response the response to display
      */
     public function indexAction()
+    {
+        return $this->render('leLivreScolairefirstBundle::index.html.twig');
+    }
+
+    /**
+     * get All student from db
+     * @return Response an json with all student
+     */
+    public function getAllAction()
     {
         $students = $this->getDoctrine()
             ->getRepository('leLivreScolairefirstBundle:Student')
             ->findAll();
 
-        if (!$students) {
-            throw $this->createNotFoundException(
-                'Aucun étudiant trouvé'
-            );
-        } else {
-            return $this->render('leLivreScolairefirstBundle::index.html.twig');
-        }
+        $response = new Response(json_encode($students));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

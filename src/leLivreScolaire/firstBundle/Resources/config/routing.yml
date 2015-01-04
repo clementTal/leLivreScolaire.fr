@@ -2,6 +2,10 @@ le_livre_scolairefirst_homepage:
     path:     /
     defaults: { _controller: leLivreScolairefirstBundle:Default:index }
 
+le_livre_scolairefirst_getAll:
+    path:     /student/getAll
+    defaults: { _controller: leLivreScolairefirstBundle:Default:getAll }
+
 le_livre_scolairefirst_init:
-    path:     /init
+    path:     /student/init
     defaults: { _controller: leLivreScolairefirstBundle:Default:create }
