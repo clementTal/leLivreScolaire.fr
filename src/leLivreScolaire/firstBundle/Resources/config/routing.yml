@@ -9,3 +9,7 @@ le_livre_scolairefirst_getAll:
 le_livre_scolairefirst_init:
     path:     /student/init
     defaults: { _controller: leLivreScolairefirstBundle:Default:create }
+
+le_livre_scolairefirst_delete:
+    path:     /student/delete
+    defaults: { _controller: leLivreScolairefirstBundle:Default:delete }

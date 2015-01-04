@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
+    // TODO: use services for model querying
     /**
      * Initial controller.
      * @return Response the response to display
