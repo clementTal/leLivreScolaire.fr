@@ -1,0 +1,3 @@
+le_livre_scolairefirst:
+    resource: "@leLivreScolairefirstBundle/Resources/config/routing.yml"
+    prefix:   /

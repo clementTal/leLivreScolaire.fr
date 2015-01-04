@@ -1,0 +1,7 @@
+parameters:
+#    le_livre_scolairefirst.example.class: leLivreScolaire\firstBundle\Example
+
+services:
+#    le_livre_scolairefirst.example:
+#        class: %le_livre_scolairefirst.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

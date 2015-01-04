@@ -1,0 +1,3 @@
+le_livre_scolairefirst_homepage:
+    path:     /
+    defaults: { _controller: leLivreScolairefirstBundle:Default:index }
