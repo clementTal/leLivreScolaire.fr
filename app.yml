@@ -6,10 +6,19 @@ api_version: 1
 handlers:
 - url: /bundles
   static_dir: web/bundles
-
-- url: /favicon.ico
-  static_files: web/favicon.ico
-  upload: web/favicon.ico
-
-- url: /.*
+- url: /config.php
+  script: web/config.php
+- url: /app.php
+  script: web/app.php
+- url: /app.php/(.+)?/?
+  script: web/app.php
+- url: /app_dev.php
   script: web/app_dev.php
+- url: /app_dev.php/(.+)?/?
+  script: web/app_dev.php
+- url: /(.+)?/?
+  script: web/app.php
+  
+skip_files:
+- ^app/logs/.*$
+- ^app/cache/.*$
