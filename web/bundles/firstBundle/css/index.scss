@@ -1,0 +1,376 @@
+@import "../../../Resources/bourbon/bourbon";
+$blue: #738ffe;
+$pink: #e91e63;
+$green: #9ccc65;
+$cyan: #00bcd4;
+$purple: #7e57c2;
+$black: #000000;
+$grey: #757575;
+$dark-grey: #424242;
+$red: #e51c23;
+$background-color:#DCDCDC;
+$primary-color: #607d8b;
+$primary-link-color: #00b0ff;
+$secondary-link-color: #fb8c00;
+$light-grey: #E2E2E2;
+
+
+$students-on-rows: 5;
+$student-height: 350px;
+$student-margin: 4px;
+$student-width: ($student-height * 3) / 4;
+$student-info-one-line: 48px;
+$student-info-two-line: 68px;
+$albun-hover-ransition: 0.5s, ease-in;
+$menu-height: 0px;
+$card-border: 1px solid $light-grey;
+$form-width: 300px !default;
+
+$default-link-color: $grey;
+$shadow-z-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24) !default;
+
+
+@mixin box-shadow($shadowValue) {
+  box-shadow: $shadowValue;
+}
+
+body{
+  background-color: $background-color;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: center;
+  background-color: rgb(26, 26, 26);
+  color: $light-grey;
+  padding: 5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.students{
+  width: ($student-width * $students-on-rows) + ($student-margin * $students-on-rows * 2);
+  margin: auto;
+  padding-top: 8px;
+  margin-top: $menu-height;
+  .student{
+    height: $student-height;
+    width: $student-width;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: $student-margin;
+    &.new {
+      height: $student-height + $student-info-one-line;
+      @include transform(translateY($student-info-one-line));
+      text-align: center;
+      cursor: pointer;
+    }
+    .new-image {
+      height: 150px;
+      width: 150px;
+      margin-top: (($student-height) - 150) / 2;
+    }
+    .student-image{
+      height: 100%;
+      width: auto;
+      img {
+        height: 100%;
+        width: auto;
+      }
+    }
+    .student-infos {
+      background-color: rgba(0, 0, 0, 0.7);
+      @include transform(translateY(-$student-info-one-line));
+      position: relative;
+      height: $student-info-one-line;
+      color: white;
+      padding: 0 16px;
+      .student-title {
+        font-size: 18px;
+        line-height: $student-info-one-line * (3/5);
+        height: $student-info-one-line * (3/5);
+        display: inline-block;
+        text-transform: capitalize;
+      }
+      .student-more {
+        font-size: 13px;
+        height: $student-info-one-line * (1/5);
+        line-height: $student-info-one-line * (1/5);
+      }
+    }
+
+    .student-control {
+      opacity:0;
+      color: white;
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      z-index: 100;
+      text-align: left;
+      .control-content {
+        position: relative;
+        cursor: pointer;
+        .fa{
+          font-size: 24px;
+        }
+        .popup
+        {
+          display: none;
+          position: absolute;
+          right: 0;
+          background-color: rgba(0, 0, 0, 0.7);
+          padding: 0 5px;
+          border-radius: 3px;
+          &.shown {
+            display: block;
+          }
+          ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+            li {
+              padding: 5px;
+              border-bottom: 1px solid $light-grey;
+              font-size: 12px;
+              &:last-child {
+                border-bottom: none;
+              }
+              i {
+                font-size: 15px;
+              }
+            }
+          }
+        }
+      }
+
+    }
+    &:after{
+      @include transition($albun-hover-ransition);
+      position: absolute;
+      top: 0;
+      bottom: $student-info-one-line;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0);
+      content: '';
+    }
+    &:hover{
+      &:after {
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+      .student-control{
+        @include transition(opacity $albun-hover-ransition);
+        opacity:1;
+      }
+    }
+  }
+}
+
+.inline {
+  display: inline-block;
+}
+
+.new-user-popup
+{
+  position: fixed;
+  &.show {
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .new-form {
+      position: absolute;
+      top: 150px;
+      left: 30%;
+      right: 30%;
+      //@include transform(translateY(-600px));
+      animation: moveDown 0.5s;
+      -webkit-animation: moveDown 0.5s;
+    }
+  }
+}
+
+
+.card {
+  width: 100%;
+  font-size: 15px;
+  background-color: #fff;
+  color: #646464;
+  border: $card-border;
+  margin-bottom: 30px;
+  padding: 15px;
+  .card-header
+  {
+    padding-bottom: 20px;
+    font-size: 20px;
+    color: $primary-color;
+    width: 100%;
+    text-transform: uppercase;
+    @include ellipsis;
+  }
+  .card-content
+  {
+    font-size: 15px;
+  }
+  .card-footer
+  {
+    padding-top: 20px;
+    text-align: right;
+    color: $light-grey;
+  }
+}
+
+a.link
+{
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  padding: 0 5px;
+  &.primary
+  {
+    color: $primary-link-color;
+  }
+  &.secondary
+  {
+    color: $secondary-link-color;
+  }
+  &.default
+  {
+    color: $default-link-color;
+  }
+}
+
+.card-z-1 {
+  @include box-shadow($shadow-z-1);
+}
+
+
+.form {
+  width: $form-width;
+  display: inline-block;
+  .group {
+    position: relative;
+    margin-bottom: 45px;
+    &:last-child
+    {
+      margin-bottom: 15px;
+    }
+  }
+
+  input {
+    font-size: 18px;
+    padding: 10px 0px 10px 0px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    @include transition(0.2s ease all);
+  }
+
+  /* active state */
+
+  input {
+    &:focus ~ label, &:valid ~ label {
+      top: -20px;
+      font-size: 14px;
+      color: $blue;
+      display: block;
+    }
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+    &:before, &:after {
+      content: '';
+      height: 2px;
+      width: 0;
+      bottom: 1px;
+      position: absolute;
+      background: $blue;
+      @include transition(0.2s ease all);
+    }
+    &:before {
+      left: 50%;
+    }
+    &:after {
+      right: 50%;
+    }
+  }
+
+  /* active state */
+
+  input:focus ~ .bar {
+    &:before, &:after {
+      width: 50%;
+    }
+  }
+
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .hidden {
+    display: none;
+  }
+}
+
+.image-upload {
+  display: inline-block;
+  margin-left: 200px;
+  img{
+    height: 170px;
+    width: auto;
+    cursor: pointer;
+  }
+
+}
+
+
+/* active state */
+
+input:focus ~ .highlight
+{
+  @include transition(inputHighlighter 0.3s ease);
+}
+
+@include keyframes(inputHighlighter)
+{
+  from {
+    background: $blue;
+  }
+  to {
+    width: 0;
+    background: transparent;
+  }
+}
+
+@include keyframes(moveDown)
+{
+  from {@include transform(translateY(-600px));}
+  to {@include transform(translateY(0px));}
+}
+
